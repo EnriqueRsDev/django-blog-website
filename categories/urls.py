@@ -3,5 +3,5 @@ from .views import CategoryList, CategoryCreate
 
 urlpatterns = [
     path('category/', CategoryList.as_view(), name='category'),
-    path('category/create', CategoryCreate.as_view(), name='create_category'),
+    path('category/new', CategoryCreate.as_view(), name='create_category'),
 ]
