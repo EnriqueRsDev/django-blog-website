@@ -1,7 +1,15 @@
+{% if user.is_authenticated %}
+    <form method="post" action="{% url 'logout' %}">
+        {% csrf_token %}
+        <button type="submit">Cerrar sesión</button>
+    </form>
+{% endif %}
+
 <h1>Posts</h1>
+
 
 <ul>
     {% for post in posts%}
-        <li>post.title</li>
+        <li>{{post.title}}</li>
     {% endfor %}
 </ul>
