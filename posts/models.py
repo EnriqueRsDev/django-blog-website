@@ -10,8 +10,8 @@ class Post(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='posts')
     created_at = models.DateTimeField(auto_now_add=True)
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, blank=True, null=True, related_name='posts')
-    published = models.BooleanField(default=False)
-    slug = models.SlugField(default='', null=False)
+    published = models.BooleanField(default=True)
+    slug = models.SlugField(default='', null=False, unique=True)
 
     def save(self, *args, **kwargs):
         if not self.slug:

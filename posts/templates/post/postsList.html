@@ -10,6 +10,6 @@
 
 <ul>
     {% for post in posts%}
-        <li>{{post.title}}</li>
+        <li><a href="{% url 'post-detail' slug=post.slug %}">{{ post.title }}</a></li>
     {% endfor %}
 </ul>

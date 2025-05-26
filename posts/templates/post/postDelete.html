@@ -1,0 +1,8 @@
+<h1>{{ encabezado }}</h1>
+<h2>¿Estás seguro de que querés eliminar este post?</h2>
+<p>{{ post.title }}</p>
+<form method="post" action="{% url 'delete-post' post.slug %}">
+  {% csrf_token %}
+  <button type="submit" >Sí, eliminar</button>
+  <a href="{% url 'posts' %}">Cancelar</a>
+</form>

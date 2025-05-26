@@ -8,9 +8,11 @@ class PostForm(forms.ModelForm):
             'title',
             'content',
             'category',
+            'published',
         ]
         labels = {
             'title': 'Titulo',
             'content': 'Contenido',
             'category': 'Category',
+            'published': 'Mostrar en el feed',
         }
