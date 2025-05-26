@@ -1,4 +1,38 @@
-<h1>{{ post.title }}</h1>
+{% extends "base.html" %}
+
+{% block title %}{{ post.title }}{% endblock %}
+
+{% block content %}
+<article class="max-w-4xl mx-auto p-6 bg-gray-900 rounded-3xl shadow-lg text-gray-200">
+  <h1 class="text-4xl font-extrabold mb-6">{{ post.title }}</h1>
+
+  {% if post.image %}
+    <img src="{{ post.image.url }}" alt="{{ post.title }}" class="w-full max-h-96 object-cover rounded-xl mb-6 shadow-md">
+  {% endif %}
+
+  <div class="prose prose-invert max-w-none mb-6">
+    <p>{{ post.content|linebreaks }}</p>
+  </div>
+
+  <div class="flex flex-wrap items-center justify-between text-sm text-gray-400 mb-6">
+    <span>Publicado el {{ post.created_at|date:"d/m/Y" }}</span>
+    <span>Autor: <strong class="text-indigo-400">{{ post.author }}</strong></span>
+    {% if post.category %}
+      <span>Categoría: <em>{{ post.category }}</em></span>
+    {% endif %}
+  </div>
+
+  {% if post.author == user %}
+    <div class="flex space-x-4">
+      <a href="{% url 'edit-post' post.slug %}" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 rounded-lg text-white font-semibold transition">Editar</a>
+      <a href="{% url 'delete-post' post.slug %}" class="px-4 py-2 bg-red-600 hover:bg-red-700 rounded-lg text-white font-semibold transition">Eliminar</a>
+    </div>
+  {% endif %}
+</article>
+{% endblock %}
+
+
+<!-- <h1>{{ post.title }}</h1>
 {% if post.image %}
   <img src="{{ post.image.url }}" alt="{{ post.title }}">
 {% endif %}
@@ -13,4 +47,4 @@
 {% if post.author ==  user %}
     <a href="{% url 'edit-post' post.slug %}">Editar</a>
     <a href="{% url 'delete-post' post.slug %}">Eliminar</a>
-{% endif %}
+{% endif %} -->

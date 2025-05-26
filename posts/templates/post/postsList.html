@@ -1,4 +1,61 @@
-{% if user.is_authenticated %}
+{% extends "base.html" %}
+
+{% block title %}Lista de posts{% endblock %}
+
+{% block content %}
+<div class="max-w-5xl mx-auto px-4 py-12">
+  {% if posts %}
+    <div class="grid md:grid-cols-2 gap-8">
+      {% for post in posts %}
+        <div class="bg-gray-800 rounded-2xl shadow-md overflow-hidden hover:shadow-indigo-500/50 transition-shadow duration-300">
+          {% if post.image %}
+            <a href="{% url 'post-detail' slug=post.slug %}">
+              <img src="{{ post.image.url }}" alt="{{ post.title }}" class="w-full h-48 object-cover rounded-t-2xl">
+            </a>
+          {% else %}
+            <a href="{% url 'post-detail' slug=post.slug %}">
+              <img src="https://img.freepik.com/free-photo/abstract-luxury-gradient-blue-background-smooth-dark-blue-with-black-vignette-studio-banner_1258-56228.jpg?ga=GA1.1.1588910579.1748226808&semt=ais_hybrid&w=740" 
+                   alt="{{ post.title }}" class="w-full h-48 object-cover rounded-t-2xl">
+            </a>
+          {% endif %}
+          <div class="p-6">
+            <a href="{% url 'post-detail' slug=post.slug %}" 
+               class="block text-2xl font-semibold text-indigo-400 hover:underline mb-3">
+              {{ post.title }}
+            </a>
+            <p class="text-gray-400 mb-5">{{ post.content|truncatewords:20 }}</p>
+            <div class="text-sm text-gray-500 flex justify-between items-center">
+              <span>Publicado el {{ post.created_at|date:"d M Y" }}</span>
+              <span class="font-medium text-indigo-300">{{ post.author }}</span>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <p class="text-center text-gray-500 text-lg">No hay posts disponibles.</p>
+  {% endif %}
+
+  <!-- Paginación -->
+  <div class="mt-12 flex justify-center items-center space-x-4 text-sm text-gray-400">
+    {% if page_obj.has_previous %}
+      <a href="?page=1" class="px-4 py-2 rounded-lg bg-indigo-700 hover:bg-indigo-600 transition">« Primera</a>
+      <a href="?page={{ page_obj.previous_page_number }}" class="px-4 py-2 rounded-lg bg-indigo-700 hover:bg-indigo-600 transition">Anterior</a>
+    {% endif %}
+
+    <span class="mx-4 font-semibold">
+      Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}
+    </span>
+
+    {% if page_obj.has_next %}
+      <a href="?page={{ page_obj.next_page_number }}" class="px-4 py-2 rounded-lg bg-indigo-700 hover:bg-indigo-600 transition">Siguiente</a>
+      <a href="?page={{ page_obj.paginator.num_pages }}" class="px-4 py-2 rounded-lg bg-indigo-700 hover:bg-indigo-600 transition">Última »</a>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}
+
+<!-- {% if user.is_authenticated %}
     <form method="post" action="{% url 'logout' %}">
         {% csrf_token %}
         <button type="submit">Cerrar sesión</button>
@@ -32,4 +89,4 @@
     <a href="?page={{ page_obj.next_page_number }}">Siguiente</a>
     <a href="?page={{ page_obj.paginator.num_pages }}">Última &raquo;</a>
   {% endif %}
-</div>
+</div> -->

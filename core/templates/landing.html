@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block title %}Bienvenido a Mi Blog{% endblock %}
+
+{% block content %}
+<div class="min-h-screen flex flex-col justify-center items-center bg-gradient-to-br from-gray-900 via-gray-800 to-gray-700 text-gray-200 px-4">
+
+  <h1 class="text-5xl font-extrabold mb-6 text-indigo-400 drop-shadow-lg">
+    Bienvenido a Mi Blog
+  </h1>
+
+  <p class="max-w-2xl text-center text-lg mb-10 leading-relaxed">
+    Aquí encontrarás artículos interesantes sobre tecnología, programación y mucho más. 
+    Explora, aprende y comparte con nuestra comunidad.
+  </p>
+
+  <div class="space-x-4">
+    <a href="{% url 'posts' %}" 
+       class="px-8 py-3 bg-indigo-600 hover:bg-indigo-700 rounded-full font-semibold transition shadow-lg">
+      Ver Posts
+    </a>
+    {% if user.is_authenticated %}
+    <a href="{% url 'new-post' %}" 
+       class="px-8 py-3 bg-gray-700 hover:bg-gray-600 rounded-full font-semibold transition shadow-lg">
+      Crear Post
+    </a>
+    {% else %}
+    <a href="{% url 'login' %}" 
+       class="px-8 py-3 bg-gray-700 hover:bg-gray-600 rounded-full font-semibold transition shadow-lg">
+      Iniciar Sesión
+    </a>
+    <a href="{% url 'register' %}" 
+       class="px-8 py-3 bg-gray-700 hover:bg-gray-600 rounded-full font-semibold transition shadow-lg">
+      Registrarse
+    </a>
+    {% endif %}
+  </div>
+
+  <footer class="mt-20 text-gray-500 text-sm">
+    © {{ now|date:"Y" }} Mi Blog. Todos los derechos reservados.
+  </footer>
+</div>
+{% endblock %}

@@ -12,11 +12,11 @@ class PostList(ListView):
     model = Post
     template_name = 'post/postsList.html'
     context_object_name = 'posts'
-    ordering = ['-created_at']
-    paginate_by = 3
+    # ordering = ['-created_at']
+    paginate_by = 10
 
     def get_queryset(self):
-        return Post.objects.filter(published=True)
+        return Post.objects.filter(published=True).order_by('-created_at')
 
 class MyPosts(LoginRequiredMixin, PostList):
     def get_queryset(self):

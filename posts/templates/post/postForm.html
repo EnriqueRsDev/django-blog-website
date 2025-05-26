@@ -1,7 +1,39 @@
-<h1>{{ encabezado }}</h1>
+{% extends "base.html" %}
+
+{% block title %}{{ encabezado }}{% endblock %}
+
+{% block content %}
+<div class="max-w-3xl mx-auto bg-gray-800 p-8 rounded-3xl shadow-lg">
+  <h1 class="text-3xl font-bold text-indigo-400 mb-8 text-center">{{ encabezado }}</h1>
+
+  <form method="post" enctype="multipart/form-data" class="space-y-6">
+    {% csrf_token %}
+    
+    {% for field in form %}
+      <div>
+        <label for="{{ field.id_for_label }}" class="block mb-2 font-semibold text-gray-300">{{ field.label }}</label>
+        {{ field }}
+        {% if field.help_text %}
+          <p class="text-xs text-gray-500 mt-1">{{ field.help_text }}</p>
+        {% endif %}
+        {% for error in field.errors %}
+          <p class="text-red-500 text-sm mt-1">{{ error }}</p>
+        {% endfor %}
+      </div>
+    {% endfor %}
+
+    <button type="submit" 
+            class="w-full py-3 bg-indigo-600 hover:bg-indigo-700 transition rounded-lg text-white font-semibold text-lg">
+      Guardar
+    </button>
+  </form>
+</div>
+{% endblock %}
+
+<!-- <h1>{{ encabezado }}</h1>
 
 <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
     {{ form.as_p }}
     <button type="submit">Guardar</button>
-</form>
+</form> -->

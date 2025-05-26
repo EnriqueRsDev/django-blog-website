@@ -24,6 +24,7 @@ urlpatterns = [
     path('post/', include('posts.urls')),
     path('', include('categories.urls')),
     path('', include('users.urls')),
+    path('', include('core.urls'))
 ]
 
 

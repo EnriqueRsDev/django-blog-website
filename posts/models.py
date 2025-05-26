@@ -5,8 +5,8 @@ from django.utils.text import slugify
 
 # Create your models here.
 class Post(models.Model):
-    title = models.CharField(max_length=50, blank=False)
-    content = models.TextField(max_length=1000, blank=True)
+    title = models.CharField(max_length=100, blank=False)
+    content = models.TextField(max_length=3000, blank=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='posts')
     image = models.ImageField(upload_to='post_images/', blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)

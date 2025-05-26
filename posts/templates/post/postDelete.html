@@ -1,8 +1,33 @@
-<h1>{{ encabezado }}</h1>
+{% extends "base.html" %}
+
+{% block title %}{{ encabezado }}{% endblock %}
+
+{% block content %}
+<div class="max-w-lg mx-auto mt-20 p-8 bg-gray-900 rounded-3xl shadow-lg text-gray-200 text-center">
+  <h1 class="text-3xl font-bold mb-4">{{ encabezado }}</h1>
+  <h2 class="text-lg mb-6">¿Estás seguro de que querés eliminar este post?</h2>
+  <p class="mb-8 text-xl font-semibold text-indigo-400">{{ post.title }}</p>
+
+  <form method="post" action="{% url 'delete-post' post.slug %}" class="space-x-4 inline-block">
+    {% csrf_token %}
+    <button type="submit" 
+      class="px-6 py-2 bg-red-600 hover:bg-red-700 rounded-lg font-semibold transition">
+      Sí, eliminar
+    </button>
+    <a href="{% url 'posts' %}" 
+      class="px-6 py-2 bg-gray-700 hover:bg-gray-600 rounded-lg font-semibold transition inline-block">
+      Cancelar
+    </a>
+  </form>
+</div>
+{% endblock %}
+
+
+<!-- <h1>{{ encabezado }}</h1>
 <h2>¿Estás seguro de que querés eliminar este post?</h2>
 <p>{{ post.title }}</p>
 <form method="post" action="{% url 'delete-post' post.slug %}">
   {% csrf_token %}
   <button type="submit" >Sí, eliminar</button>
   <a href="{% url 'posts' %}">Cancelar</a>
-</form>
+</form> -->
