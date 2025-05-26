@@ -8,6 +8,7 @@ class Post(models.Model):
     title = models.CharField(max_length=50, blank=False)
     content = models.TextField(max_length=1000, blank=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='posts')
+    image = models.ImageField(upload_to='post_images/', blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, blank=True, null=True, related_name='posts')
     published = models.BooleanField(default=True)

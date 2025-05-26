@@ -7,12 +7,15 @@ class PostForm(forms.ModelForm):
         fields = [
             'title',
             'content',
+            'image',
             'category',
             'published',
         ]
         labels = {
             'title': 'Titulo',
             'content': 'Contenido',
+            'image': 'Portada',
             'category': 'Category',
             'published': 'Mostrar en el feed',
+
         }

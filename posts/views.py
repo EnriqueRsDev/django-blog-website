@@ -13,6 +13,7 @@ class PostList(ListView):
     template_name = 'post/postsList.html'
     context_object_name = 'posts'
     ordering = ['-created_at']
+    paginate_by = 3
 
     def get_queryset(self):
         return Post.objects.filter(published=True)

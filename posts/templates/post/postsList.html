@@ -10,6 +10,26 @@
 
 <ul>
     {% for post in posts%}
-        <li><a href="{% url 'post-detail' slug=post.slug %}">{{ post.title }}</a></li>
+        <li>
+            <a href="{% url 'post-detail' slug=post.slug %}">{{ post.title }}</a>
+            <p>{{ post.content|truncatewords:10 }}</p>
+        </li>
+    {% empty %}
+        <p>No hay posts disponibles.</p>
     {% endfor %}
 </ul>
+
+
+<div class="pagination">
+  {% if page_obj.has_previous %}
+    <a href="?page=1">&laquo; Primera</a>
+    <a href="?page={{ page_obj.previous_page_number }}">Anterior</a>
+  {% endif %}
+
+  Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}
+
+  {% if page_obj.has_next %}
+    <a href="?page={{ page_obj.next_page_number }}">Siguiente</a>
+    <a href="?page={{ page_obj.paginator.num_pages }}">Última &raquo;</a>
+  {% endif %}
+</div>
